@@ -17,6 +17,7 @@ result['Unit'] = None
 result['Line'] = None
 result['Buyer'] = None
 result['Shipment'] = None
+result['Order'] = None
 lines = []
 buyers = []
 from typing import Dict
@@ -27,6 +28,7 @@ for row in rows:
     if len(row) > 8 and row[1] in floor_names:
         buyer = row[3].split('::')[0].split()[1]
         shipment = row[3].split('::')[3]
+        order = row[3].split()[0]
         if buyer not in buyers:
             buyers.append(buyer)
         if buyer in production.keys():
@@ -41,6 +43,7 @@ for row in rows:
             result.loc[index, 'Line'] = row[2]
             result.loc[index, 'Buyer'] = buyer
             result.loc[index, 'Shipment'] = shipment
+            result.loc[index, 'Order'] = order
             index += 1
 print('Total Line Running:', len(lines))
 
@@ -56,10 +59,12 @@ for index, row in result.iterrows():
     l_idx = 'B' + str(index + 2)
     b_idx = 'C' + str(index + 2)
     s_idx = 'G' + str(index + 2)
+    o_idx = 'H' + str(index + 2)
     ws[u_idx] = row['Unit']
     ws[l_idx] = row['Line']
     ws[b_idx] = row['Buyer']
     ws[s_idx] = row['Shipment']
+    ws[o_idx] = row['Order']
 for i in range(100):
     b_idx = 'A' + str(i + 2)
     q_idx = 'C' + str(i + 2)
