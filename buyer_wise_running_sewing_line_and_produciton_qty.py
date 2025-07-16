@@ -10,8 +10,7 @@ rows = []
 for row in html_content.find_all('tr'):
     row_data = [cell.get_text(strip=True) for cell in row.find_all('td')]
     rows.append(row_data)
-floor_names = ['JAL-1', 'JAL-2', 'JAL-3', 'FFL-1', 'FFL-2', 'FFL-3', 'JFL-1', 'JFL-2', 'JKL-1', 'JKL-2', 'JKL-3', 'JKL-4', 'JKL-5', 'DBL', 'MFL', 'MFL-1', 'MFL-2',
-'MFL-3', 'MFL-4', 'FFL2-1', 'FFL2-2', 'FFL2-3', 'FFL2-4', 'FFL2-5', 'JKL-U2-1', 'JKL-U2-2', 'JKL-U2-3', 'JKL-U2-4', 'JKL-U2-5']
+floor_names = ['JAL-1', 'JAL-2', 'JAL-3', 'FFL-1', 'FFL-2', 'FFL-3', 'JFL-1', 'JFL-2', 'JKL-1', 'JKL-2', 'JKL-3', 'JKL-4', 'JKL-5', 'DBL', 'MFL', 'MFL-1', 'MFL-2', 'MFL-3', 'MFL-4', 'FFL2-1', 'FFL2-2', 'FFL2-3', 'FFL2-4', 'FFL2-5', 'JKL-U2-1', 'JKL-U2-2', 'JKL-U2-3', 'JKL-U2-4', 'JKL-U2-5', 'GTAL-1', 'GTAL-2', 'GTAL-3',]
 result = pd.DataFrame()
 result['Unit'] = None
 result['Line'] = None
@@ -25,7 +24,7 @@ production: Dict[str, int] = {}
 total_production = 0
 index = 0
 for row in rows:
-    if len(row) > 8 and row[1] in floor_names:
+    if len(row) >= 8 and row[1] in floor_names:
         buyer = row[3].split('::')[0].split()[1]
         shipment = row[3].split('::')[3]
         order = row[3].split()[0]
